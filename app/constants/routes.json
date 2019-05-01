@@ -1,0 +1,7 @@
+{
+  "HOME": "/",
+  "DOCKER": "/docker",
+  "VOLUME": "/volume",
+  "NETWORK": "/network",
+  "ERROR": "/error"
+}
