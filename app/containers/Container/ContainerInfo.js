@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 
 import { Tag } from 'antd';
 import doc from '../utils';
-import { object } from 'prop-types';
 
 const cpuPercentage = (
   totalUse,
@@ -28,13 +27,14 @@ function memUsage(use, limit) {
 // function maxRam(ram) {
 //   return Math.floor((ram / Math.pow(1024, 3)) * 100) / 100;
 // }
-const ContainerInfo = (props: object) => {
+const ContainerInfo = (props: { id: { Id: string } }) => {
   const { id } = props;
+  const { Id } = id;
 
   const [cpu, setCpu] = useState(0);
   const [memUsag, setMemUsage] = useState(0);
 
-  const container = doc.getContainer(id.Id);
+  const container = doc.getContainer(Id);
 
   useEffect(() => {
     container.stats({ stream: true }, (err, stream) => {
@@ -47,7 +47,7 @@ const ContainerInfo = (props: object) => {
         const arrayReverse = array.reverse();
 
         const use = JSON.parse(chunk.toString('utf8')).memory_stats.usage;
-        const limit = arrayReverse[1].memory_stats.limit;
+        const { limit } = arrayReverse[1].memory_stats;
 
         const cpuContainer = arrayReverse[1].cpu_stats.cpu_usage;
         const systemeUse = arrayReverse[1].cpu_stats.system_cpu_usage;
@@ -108,4 +108,5 @@ const ContainerInfo = (props: object) => {
 ContainerInfo.protoTypes = {
   id: PropTypes.shape({}).isRequired
 };
+
 export default ContainerInfo;

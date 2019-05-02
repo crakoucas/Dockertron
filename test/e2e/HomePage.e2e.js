@@ -23,16 +23,19 @@ test(
   assertNoConsoleErrors
 );
 
-test('should navgiate to /volume', async t => {
+test('should navigate to Volume', async t => {
   await waitForReact();
   await t
-    .click(
-      ReactSelector('Link').withProps({
-        to: '/volume'
-      })
-    )
+    .click(ReactSelector('MenuItem').withProps('eventKey', 'volume'))
     .expect(getPageUrl())
     .contains('/volume');
+});
+test('should navigate to Network', async t => {
+  await waitForReact();
+  await t
+    .click(ReactSelector('MenuItem').withProps('eventKey', 'network'))
+    .expect(getPageUrl())
+    .contains('/network');
 });
 
 // fixture`Counter Tests`

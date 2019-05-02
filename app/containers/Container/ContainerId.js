@@ -1,11 +1,12 @@
 // @flow
 import React, { useEffect, useState, useRef } from 'react';
-import PropTypes from 'prop-types';
+
 import doc from '../utils';
 
-const ContainerId = (props: object) => {
-  const [logs, setLogs] = useState([]);
+const ContainerId = (props: { id: ?string }) => {
   const { id } = props;
+
+  const [logs, setLogs] = useState([]);
   function useInterval(callback, delay) {
     const savedCallback = useRef();
 
@@ -21,6 +22,7 @@ const ContainerId = (props: object) => {
     useEffect(
       () => {
         function tick() {
+          // $FlowFixMe
           savedCallback.current();
         }
         if (delay !== null) {
@@ -44,8 +46,8 @@ const ContainerId = (props: object) => {
         since: Math.round(new Date().getTime() / 1000) - 60 * 60 * 24 * 30
       },
       (err, log) => {
-        // @flow-disable-line
         array.push(log.toString('utf8').split('\n'));
+        // $FlowFixMe
         setLogs(...array);
       }
     );
@@ -60,15 +62,12 @@ const ContainerId = (props: object) => {
         }}
       >
         {// eslint-disable-next-line global-require
-        logs.reverse().map((x, i) => (
-          <div key={i}>{x.slice(8)}</div>
+        logs.reverse().map(x => (
+          <div key={x}>{x.slice(8)}</div>
         ))}
       </div>
     </div>
   );
 };
 
-ContainerId.propTypes = {
-  id: PropTypes.string.isRequired
-};
 export default ContainerId;

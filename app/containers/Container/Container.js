@@ -1,16 +1,23 @@
 // @flow
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+// $FlowFixMe
 import { notification, Spin, Card, Icon, Avatar } from 'antd';
 
 import ContainerInfo from './ContainerInfo';
 import doc from '../utils';
-import { object } from 'prop-types';
 
 const { Meta } = Card;
 
-const Container = (props: object) => {
+const Container = (props: {
+  power: string,
+  docker: { Id: string, Image: string, Names: string },
+  logs: string => void,
+  update: void => void
+}) => {
+  // eslint-disable-next-line
   const [idDocker, setIdDocker] = useState(null);
+  // eslint-disable-next-line
   const [change, setChange] = useState(false);
   const [isLoading, setisLoading] = useState(false);
 
@@ -144,7 +151,11 @@ const Container = (props: object) => {
           <Spin spinning={isLoading} size="large" />
         </div>
       );
-    } else if (power === 'paused' || power === 'stopped') {
+    }
+    if (power === 'paused') {
+      return <div style={{ marginLeft: '45%', height: '40px' }} />;
+    }
+    if (power === 'stopped') {
       return <div style={{ marginLeft: '45%', height: '40px' }} />;
     }
     return <ContainerInfo id={docker} />;

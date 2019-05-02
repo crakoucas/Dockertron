@@ -33,7 +33,7 @@ const Home = props => {
           <Icon type="appstore" />
           Volume
         </Menu.Item>
-        <Menu.Item key="container/lolo">
+        <Menu.Item key="network">
           <Icon type="appstore" />
           Network
         </Menu.Item>

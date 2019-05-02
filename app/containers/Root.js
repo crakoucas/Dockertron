@@ -12,6 +12,7 @@ export default class Root extends Component<Props> {
   render() {
     const { history } = this.props;
     return (
+      // $FlowFixMe
       <Router history={history}>
         <Home />
       </Router>
