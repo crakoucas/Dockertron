@@ -31,6 +31,7 @@ install:
   - docker version
 
 test_script:
+  - docker pull --platform linux mariadb
   - docker run --name mariadb -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mariadb
   - yarn package-ci
   - yarn lint

@@ -54,8 +54,8 @@ cache:
     - $HOME/.cache/electron-builder
 
 before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; docker-machine create --driver virtualbox default; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; eval "$(docker-machine env default)"; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then docker-machine create --driver virtualbox default; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then eval "$(docker-machine env default)"; fi
   - docker run --name mariadb -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mariadb
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export CXX="g++-8"; fi
 
