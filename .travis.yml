@@ -6,6 +6,10 @@ matrix:
       language: node_js
       node_js:
         - node
+      addons:
+        homebrew:
+          packages:
+            - docker
       env:
         - ELECTRON_CACHE=$HOME/.cache/electron
         - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
@@ -47,9 +51,7 @@ cache:
     - flow-typed
     - $HOME/.cache/electron
     - $HOME/.cache/electron-builder
-sudo: required
-services:
-  - docker
+
 before_install:
   - docker run --name mariadb -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mariadb
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export CXX="g++-8"; fi
