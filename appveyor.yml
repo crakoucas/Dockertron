@@ -28,14 +28,11 @@ install:
   - ps: Install-Product node $env:nodejs_version x64
   - set CI=true
   - yarn
-  - docker version
 
 test_script:
-  - docker pull --platform linux mariadb
-  - docker run --name mariadb -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mariadb
   - yarn package-ci
   - yarn lint
   # - yarn flow
   - yarn test
-  - yarn build-e2e
-  - yarn test-e2e
+  # - yarn build-e2e
+  # - yarn test-e2e
